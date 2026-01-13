@@ -5,13 +5,15 @@ import { useState } from "react"
 import Script from "next/script"
 import { Loader2 } from "lucide-react"
 import axios from "axios"
+import { useSearchParams } from "next/navigation"
 
 const PaymentPage = () => {
     const amount = 100; 
     const [isProcessing, setIsProcessing] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState(""); 
     const [razorpayLoaded, setRazorpayLoaded] = useState(false);
-    const token = new URLSearchParams(window.location.search).get("token");
+    const searchParams = useSearchParams();
+    const token = searchParams.get("token");
 
     const handlePayment = async () => {
         if (!razorpayLoaded) {
