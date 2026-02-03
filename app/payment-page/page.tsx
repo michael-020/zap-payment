@@ -67,7 +67,7 @@ const PaymentPage = () => {
                             setPaymentStatus(`Payment Successful! You are now a Premium user.`);
                         }
                         await new Promise(r => setTimeout(r, 2000))
-                        window.location.href = "http://localhost:3000/chat?paid=true";
+                        window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/chat?paid=true`;
                     } catch (error) {
                         console.error("Payment verification failed", error);
                         setPaymentStatus("Payment completed but verification failed. Please contact support.");
