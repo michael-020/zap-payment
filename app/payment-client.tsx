@@ -8,7 +8,7 @@ import axios from "axios"
 import { useSearchParams } from "next/navigation"
 
 export const PaymentClient = () => {
-    const amount = 99; 
+    const amount = 1; 
     const [isProcessing, setIsProcessing] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState(""); 
     const [razorpayLoaded, setRazorpayLoaded] = useState(false);
