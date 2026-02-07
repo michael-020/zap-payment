@@ -43,8 +43,8 @@ export const PaymentClient = () => {
                 key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
                 amount: data.amount,
                 currency: "INR",
-                name: "Your Company Name",
-                description: "Test Transaction",
+                name: "Zap",
+                description: "Transaction to purchase Zap Pro",
                 order_id: data.orderId,
                 handler: async function (response: any) {
                     console.log("Payment successful", response);
@@ -74,9 +74,9 @@ export const PaymentClient = () => {
                     }
                 },
                 prefill: {
-                    name: "John Doe",
-                    email: "johndoe@gmail.com",
-                    contact: "9999999999",
+                    name: "",
+                    email: "",
+                    contact: "",
                 },
                 notes: {
                     address: "Razorpay Corporate Office",
