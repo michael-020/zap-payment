@@ -44,7 +44,7 @@ export const PaymentClient = () => {
                 amount: data.amount,
                 currency: "INR",
                 name: "Zap",
-                description: "Transaction to purchase Zap Pro",
+                description: "Zap Pro - One-time lifetime access",
                 order_id: data.orderId,
                 handler: async function (response: any) {
                     console.log("Payment successful", response);
@@ -74,15 +74,15 @@ export const PaymentClient = () => {
                     }
                 },
                 prefill: {
-                    name: "",
-                    email: "",
+                    name: "Zap User",
+                    email: "zap.ai.help@gmail.com",
                     contact: "",
                 },
                 notes: {
-                    address: "Razorpay Corporate Office",
+                    address: "Zap Technologies, India",
                 },
                 theme: {
-                    color: "#3399cc",
+                    color: "#6D28D9",
                 },
             };
 
