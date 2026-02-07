@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Script from "next/script"
 import { Loader2 } from "lucide-react"
 import axios from "axios"
@@ -12,8 +12,36 @@ export const PaymentClient = () => {
     const [isProcessing, setIsProcessing] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState(""); 
     const [razorpayLoaded, setRazorpayLoaded] = useState(false);
+    const [checkingToken, setCheckingToken] = useState(true)
+    const [tokenValid, setTokenValid] = useState(false)
     const searchParams = useSearchParams();
     const token = searchParams.get("token");
+
+    useEffect(() => {
+        if (!token) {
+            setCheckingToken(false)
+            return
+        }
+
+        const verify = async () => {
+            try {
+            const res = await axios.post(
+                `${process.env.NEXT_PUBLIC_API_URL}/api/verify-payment-token`,
+                { token }
+            )
+
+            const data = await res.data
+            setTokenValid(data.valid)
+            } catch(error) {
+                console.error("Error while verifying token: ", error)
+                setTokenValid(false)
+            } finally {
+                setCheckingToken(false)
+            }
+        }
+
+        verify()
+    }, [token])
 
     const handlePayment = async () => {
         if (!razorpayLoaded) {
@@ -100,6 +128,25 @@ export const PaymentClient = () => {
             setIsProcessing(false);
         }
     };
+
+    if (checkingToken) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-neutral-100 dark:bg-neutral-900">
+            <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
+            </div>
+        )
+    }
+
+    if (!token || !tokenValid) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-neutral-100 dark:bg-neutral-900">
+            <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+                Invalid or expired payment link.
+            </p>
+            </div>
+        )
+    }
+
 
     return (
         <>
