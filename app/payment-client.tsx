@@ -131,16 +131,16 @@ export const PaymentClient = () => {
 
     if (checkingToken) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-neutral-100 dark:bg-neutral-900">
-            <Loader2 className="h-8 w-8 animate-spin text-purple-500" />
+            <div className="min-h-screen flex items-center justify-center bg-neutral-100 dark:bg-neutral-900 px-4">
+            <Loader2 className="h-6 w-6 sm:h-8 sm:w-8 animate-spin text-purple-500" />
             </div>
         )
     }
 
     if (!token || !tokenValid) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-neutral-100 dark:bg-neutral-900">
-            <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+            <div className="min-h-screen flex items-center justify-center bg-neutral-100 dark:bg-neutral-900 px-4">
+            <p className="text-neutral-600 dark:text-neutral-400 text-xs sm:text-sm text-center">
                 Invalid or expired payment link.
             </p>
             </div>
@@ -156,36 +156,36 @@ export const PaymentClient = () => {
                 onLoad={() => setRazorpayLoaded(true)}
             />
 
-            <div className="min-h-screen bg-neutral-100 dark:bg-neutral-800/10 flex items-center justify-center">
-                <div className="w-full max-w-md p-8 space-y-8 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-neutral-200/50 dark:shadow-neutral-900 rounded-lg shadow-lg">
+            <div className="min-h-screen bg-neutral-100 dark:bg-neutral-800/10 flex items-center justify-center px-4 py-6 sm:px-6 sm:py-8">
+                <div className="w-full max-w-md p-5 sm:p-8 space-y-6 sm:space-y-8 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow-neutral-200/50 dark:shadow-neutral-900 rounded-lg shadow-lg">
                     
                     <div>
-                        <h2 className="mt-6 text-center text-3xl font-extrabold text-neutral-900 dark:text-neutral-200">
+                        <h2 className="mt-4 sm:mt-6 text-center text-2xl sm:text-3xl font-extrabold text-neutral-900 dark:text-neutral-200">
                             Complete Your Payment
                         </h2>
-                        <p className="mt-2 text-center text-sm text-neutral-600 dark:text-neutral-400">
+                        <p className="mt-2 text-center text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
                            Securely pay with Razorpay
                         </p>
                     </div>
 
-                    <div className="border-t border-b border-neutral-200 dark:border-neutral-700 py-6">
+                    <div className="border-t border-b border-neutral-200 dark:border-neutral-700 py-4 sm:py-6">
                         <div className="flex justify-between items-center">
-                            <p className="text-lg font-medium text-neutral-800 dark:text-neutral-300">Zap Pro</p>
-                            <p className="text-lg font-bold text-neutral-800 dark:text-neutral-300">₹{amount.toFixed(2)}</p>
+                            <p className="text-base sm:text-lg font-medium text-neutral-800 dark:text-neutral-300">Zap Pro</p>
+                            <p className="text-base sm:text-lg font-bold text-neutral-800 dark:text-neutral-300">₹{amount.toFixed(2)}</p>
                         </div>
-                         <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-300">A one-time purchase for our premium service.</p>
+                         <p className="mt-1 text-xs sm:text-sm text-neutral-600 dark:text-neutral-300">A one-time purchase for our premium service.</p>
                     </div>
 
                     <div>
                         <button
                             onClick={handlePayment}
                             disabled={isProcessing}
-                            className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-purple-500/70 hover:bg-purple-500/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-300"
+                            className="w-full flex justify-center items-center py-2.5 sm:py-3 px-4 border border-transparent rounded-md shadow-sm text-base sm:text-lg font-medium text-white bg-purple-500/70 hover:bg-purple-500/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-300"
                         >
                             {isProcessing ? (
                                 <>
-                                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                                    Processing...
+                                    <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
+                                    <span className="text-sm sm:text-base">Processing...</span>
                                 </>
                             ) : (
                                 `Pay ₹${amount.toFixed(2)} Now`
@@ -194,7 +194,7 @@ export const PaymentClient = () => {
                     </div>
 
                     {paymentStatus && (
-                        <div className={`mt-4 text-center p-3 rounded-md ${
+                        <div className={`mt-3 sm:mt-4 text-center p-2.5 sm:p-3 rounded-md text-xs sm:text-sm ${
                             paymentStatus.includes('Successful') 
                                 ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' 
                                 : 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300'
@@ -203,7 +203,7 @@ export const PaymentClient = () => {
                         </div>
                     )}
                     
-                    <div className="text-center text-xs text-gray-500 dark:text-gray-400">
+                    <div className="text-center text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
                         <p>🔒 All transactions are secure and encrypted.</p>
                     </div>
 
