@@ -14,8 +14,33 @@ export const PaymentClient = () => {
     const [razorpayLoaded, setRazorpayLoaded] = useState(false);
     const [checkingToken, setCheckingToken] = useState(true)
     const [tokenValid, setTokenValid] = useState(false)
+    const [userEmail, setUserEmail] = useState<string | null>(null)
+    const [checkingEmail, setCheckingEmail] = useState(true)
     const searchParams = useSearchParams();
     const token = searchParams.get("token");
+
+    useEffect(() => {
+        if (!token || !tokenValid) {
+            setCheckingEmail(false)
+            return
+        }
+
+        const fetchEmail = async () => {
+            try {
+                const res = await axios.get(
+                    `${process.env.NEXT_PUBLIC_API_URL}/api/get-email`
+                )
+                setUserEmail(res.data.email ?? null)
+            } catch (error) {
+                console.error("Error while fetching user email:", error)
+                setUserEmail(null)
+            } finally {
+                setCheckingEmail(false)
+            }
+        }
+
+        fetchEmail()
+    }, [token, tokenValid])
 
     useEffect(() => {
         if (!token) {
@@ -103,7 +128,7 @@ export const PaymentClient = () => {
                 },
                 prefill: {
                     name: "Zap User",
-                    email: "zap.ai.help@gmail.com",
+                    email:  userEmail ? userEmail : undefined,
                     contact: "",
                 },
                 notes: {
@@ -129,10 +154,10 @@ export const PaymentClient = () => {
         }
     };
 
-    if (checkingToken) {
+    if (checkingToken || checkingEmail) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-neutral-100 dark:bg-neutral-900 px-4">
-            <Loader2 className="h-6 w-6 sm:h-8 sm:w-8 animate-spin text-purple-500" />
+                <Loader2 className="h-6 w-6 sm:h-8 sm:w-8 animate-spin text-purple-500" />
             </div>
         )
     }
@@ -140,9 +165,9 @@ export const PaymentClient = () => {
     if (!token || !tokenValid) {
         return (
             <div className="min-h-screen flex items-center justify-center bg-neutral-100 dark:bg-neutral-900 px-4">
-            <p className="text-neutral-600 dark:text-neutral-400 text-xs sm:text-sm text-center">
-                Invalid or expired payment link.
-            </p>
+                <p className="text-neutral-600 dark:text-neutral-400 text-xs sm:text-sm text-center">
+                    Invalid or expired payment link.
+                </p>
             </div>
         )
     }
@@ -179,7 +204,7 @@ export const PaymentClient = () => {
                     <div>
                         <button
                             onClick={handlePayment}
-                            disabled={isProcessing}
+                            disabled={isProcessing || !razorpayLoaded}
                             className="w-full flex justify-center items-center py-2.5 sm:py-3 px-4 border border-transparent rounded-md shadow-sm text-base sm:text-lg font-medium text-white bg-purple-500/70 hover:bg-purple-500/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-300"
                         >
                             {isProcessing ? (
