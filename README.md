@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zap Payment ⚡
 
-## Getting Started
+Welcome to Zap Payment! This project provides a secure, streamlined, and token-based payment interface for "Zap Pro - One-time lifetime access." Built with modern web technologies, it ensures a smooth and authenticated checkout experience for your users.
 
-First, run the development server:
+## ✨ Features
+
+*   🔒 **Secure Token-Based Access**: Validates a unique token via URL parameters to authorize payment initiation.
+*   👤 **Personalized User Experience**: Fetches the user's email based on the provided token for a tailored checkout.
+*   💳 **Seamless Payment Gateway Integration**: Fully integrated with Razorpay for secure and reliable online transactions.
+*   💸 **Dedicated Product Checkout**: Specifically designed for "Zap Pro - One-time lifetime access" with a fixed payment amount.
+*   🚀 **Modern Frontend**: Delivers a dynamic and responsive user experience with client-side driven payment flow, loading states, and error handling.
+
+## 🛠️ Technologies Used
+
+### Frontend
+*   **Next.js 14** (App Router)
+*   **React**
+*   **Tailwind CSS**
+*   **next/font** (Vercel's Geist Font)
+*   **Razorpay Client-Side SDK** (dynamically loaded)
+
+### Backend (Interacted with via APIs)
+*   Backend API for token verification (`/api/verify-payment-token`)
+*   Backend API for email retrieval (`/api/get-email`)
+*   Backend API for order creation (`/api/create-order`)
+
+*(Note: This project primarily focuses on the Next.js frontend application and its interaction with a separate backend API layer.)*
+
+## 🚀 Getting Started
+
+Follow these steps to get the Zap Payment application up and running on your local machine.
+
+### Prerequisites
+
+*   Node.js (LTS version recommended)
+*   npm or Yarn
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repository-url>
+    cd zap-payment
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+### Configuration
+
+Create a `.env.local` file in the root of the project and add your Razorpay Key ID:
+
+```
+RAZORPAY_KEY_ID=rzp_test_XXXXXXXXXXXXXXXX
+```
+
+*(You will need a Razorpay account to obtain your `RAZORPAY_KEY_ID`.)*
+
+### Run the Development Server
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The application will typically be accessed with a token parameter, e.g., `http://localhost:3000?token=YOUR_SECURE_TOKEN_HERE`.
